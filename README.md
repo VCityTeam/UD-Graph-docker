@@ -28,3 +28,4 @@ docker run -v $(pwd)/data:/data liris/ud-graph uml2owl --config /data/shapechang
 * When using a custom shapechange configuration file, be sure to specify the output directory as the mounted drive, for example:
 ```
 <targetParameter name="outputDirectory" value="/data-io/output/"/>
+```
