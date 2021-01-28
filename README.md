@@ -7,9 +7,13 @@ docker build -t liris/ud-graph .
 ```
 
 ## To execute a transformation
-For detailed usage information: 
+For usage information: 
 ```
 docker run liris/ud-graph -rm [-h|--help]
+```
+You can also view information on a specific functions
+```
+docker run liris/ud-graph -rm [uml2owl|xsd2owl|xml2rdf] [-h|--help]
 ```
 
 General usage:
