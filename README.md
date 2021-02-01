@@ -24,7 +24,7 @@ docker run -v [path to external mounted volume]:[path to internal mounted volume
 
 For example to launch a shapechange transformation with a configuration file:
 ```
-docker run -v $(pwd)/data:/data liris/ud-graph uml2owl --config /data/shapechange_config.xml --input /data/uml_model.xml --output /data
+docker run -v $(pwd)/data:/data liris/ud-graph uml2owl --config /data/shapechange_config.xml
 ```
 
 ## Tips!
