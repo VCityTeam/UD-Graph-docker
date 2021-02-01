@@ -1,7 +1,7 @@
 FROM python:3.8-buster
 
 # Install dependencies
-RUN apt-get install -q -y \
+RUN apt-get update && apt-get install -q -y \
 	openjdk-11-jdk \
 	git \
 	&& pip install rdflib \
