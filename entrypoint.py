@@ -20,7 +20,7 @@ def main():
 
     command = ''
     if args.transformation == 'uml2owl':
-        command = f"java -jar lib/ShapeChange-2.9.1.jar -Dfile.encoding=UTF-8 -c {args.config} -x '$input$' '{args.input}' -x '$output$' '{args.output}'"
+        command = f"java -jar lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 -c {args.config} -x '$input$' '{args.input}' -x '$output$' '{args.output}'"
     elif args.transformation == 'xml2rdf':
         command = f'python XML-to-RDF/OWL-based-transformations/CityGML2RDF.py {args.input} {args.model} {args.output}'
     elif args.transformation == 'xsd2owl':
