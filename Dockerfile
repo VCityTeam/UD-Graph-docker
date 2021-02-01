@@ -15,4 +15,4 @@ COPY entrypoint.py UD-Graph/Transformations/entrypoint.py
 RUN chmod u+x UD-Graph/Transformations/entrypoint.py
 
 WORKDIR UD-Graph/Transformations/
-ENTRYPOINT ["python", "./entrypoint.py"]
+ENTRYPOINT ["python", "entrypoint.py"]
