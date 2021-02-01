@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -q -y \
 RUN git clone https://github.com/VCityTeam/UD-Graph.git
 
 # Setup entrypoint
-COPY entrypoint.py UD-Graph/Transformations/entrypoint.py
-RUN chmod u+x UD-Graph/Transformations/entrypoint.py
+COPY entrypoint.py /UD-Graph/Transformations/entrypoint.py
+RUN chmod u+x /UD-Graph/Transformations/entrypoint.py
 
-WORKDIR UD-Graph/Transformations/
+WORKDIR /UD-Graph/Transformations/
 ENTRYPOINT ["python", "entrypoint.py"]
