@@ -4,7 +4,7 @@ Docker context for UD-Graph functionalities
 ## To build image
 ```
 git clone git://github.com/VCityTeam/UD-Graph-docker/
-docker build -t liris/ud-graph UD-Graph-docker/
+docker build -t liris/ud-graph ./UD-Graph-docker/
 ```
 
 ## To execute a transformation
