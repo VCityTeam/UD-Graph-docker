@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -q -y \
 	&& pip install lxml
 
 # Clone UD-Graph
-RUN git clone https://github.com/VCityTeam/UD-Graph.git
+RUN git clone -b v1.0 https://github.com/VCityTeam/UD-Graph.git
 
 # Setup entrypoint
 COPY entrypoint.py /UD-Graph/Transformations/entrypoint.py
