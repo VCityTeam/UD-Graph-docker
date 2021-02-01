@@ -14,5 +14,5 @@ RUN git clone https://github.com/VCityTeam/UD-Graph.git
 COPY entrypoint.py /UD-Graph/Transformations/entrypoint.py
 RUN chmod u+x /UD-Graph/Transformations/entrypoint.py
 
-WORKDIR /
-ENTRYPOINT ["python", "/UD-Graph/Transformations/entrypoint.py"]
+WORKDIR /UD-Graph/Transformations/
+ENTRYPOINT ["python", "entrypoint.py"]
