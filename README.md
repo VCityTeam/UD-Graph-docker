@@ -34,3 +34,7 @@ docker run -v $(pwd)/data:/data liris/ud-graph uml2owl --config /data/shapechang
 ```
 <targetParameter name="outputDirectory" value="/data-io/output/"/>
 ```
+or you can use variables which will be replaced by the endpoint script
+```
+<targetParameter name="outputDirectory" value="$input$"/>
+```
