@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -q -y \
 
 # Clone UD-Graph
 RUN git clone https://github.com/VCityTeam/UD-Graph.git \
+	&& cd UD-Graph \
 	&& git checkout tags/v1.0
 
 
