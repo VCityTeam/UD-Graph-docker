@@ -19,7 +19,7 @@ USER user
 # Setup UD-Graph
 RUN git clone https://github.com/VCityTeam/UD-Graph.git /home/user/UD-Graph \
 	&& cd /home/user/UD-Graph \
-	&& git checkout tags/v1.1
+	&& git checkout tags/v1.0.0-alpha
 
 # Setup entrypoint
 COPY entrypoint.py /entrypoint.py
