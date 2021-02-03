@@ -12,17 +12,17 @@ def main():
     xml2rdf_parser = subparsers.add_parser('xml2rdf', help='transform an xml file into a rdf graph')
     xml2rdf_parser.add_argument('--input', required=True, help='specify the input file to transform')
     xml2rdf_parser.add_argument('--model', required=True, help='specify the ontology to base the transformation on')
-    xml2rdf_parser.add_argument('--output', default='./xml2rdf_output', help='specify the output directory')
+    xml2rdf_parser.add_argument('--output', default='./output', help='specify the output directory')
     xsd2owl_parser = subparsers.add_parser('xsd2owl', help='transform an xsd file into an owl ontology')
     xsd2owl_parser.add_argument('--input', required=True, help='specify the input xsd file to transform')
-    xsd2owl_parser.add_argument('--output', default='./xsd2owl_output', help='specify the output directory')
+    xsd2owl_parser.add_argument('--output', default='./output', help='specify the output directory')
     args = parser.parse_args()
 
     command = ''
     if args.transformation == 'uml2owl':
         command = f"java -jar lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 -c {args.config} -x '$input$' '{args.input}' -x '$output$' '{args.output}'"
     elif args.transformation == 'xml2rdf':
-        command = f'python XML-to-RDF/OWL-based-transformations/CityGML2RDF.py {args.input} {args.model} {args.output}'
+        command = f'python XML-to-RDF/OWL-based-transformations/CityGML2RDF.py {args.model} {args.input} {args.output}'
     elif args.transformation == 'xsd2owl':
         command = f'python XSD-to-OWL/run.py {args.input} {args.output}'
 
