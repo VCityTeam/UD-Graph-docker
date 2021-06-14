@@ -7,34 +7,39 @@ git clone git://github.com/VCityTeam/UD-Graph-docker/
 docker build -t liris:ud-graph ./UD-Graph-docker/
 ```
 
-## To execute a transformation
-For usage information: 
+## How to run UD-Graph-docker
+To use UD-Graph-docker run the container using the following docker run command pattern. Note that a local folder must be mounted to `/inout` to send/receive files to/from the container:
+```
+docker run --name [container name] -v [path to a local folder]:/inout liris:ud-graph [shapechange|xsd2owl|xml2rdf] [command args**]
+```
+To display general usage information: 
 ```
 docker run --rm liris:ud-graph [-h|--help]
 ```
-You can also view information on a specific functions
+You can also view more detailed information on a specific function
 ```
 docker run --rm liris:ud-graph [shapechange|xsd2owl|xml2rdf] [-h|--help]
 ```
 
-General usage:
+### How to use the ShapeChange function
+This function uses [ShapeChange](https://shapechange.net/) to transform a UML model into an OWL ontology.
+
+Two example ShapeChange configuration files for transforming the CityGML 2.0 and 3.0 models as XMI files are available within the container and can be accessed with the following commands:
 ```
-docker run --name [container name]-v [path to a local folder]:[path to mount folder in container] liris:ud-graph [entrypoint_arguments**]
+docker run --name ud-graph1 -v $(pwd)/myfolder:/inout liris:ud-graph shapechange --config CityGML2.0_config.xml --input [input UML model as XMI]
+```
+```
+docker run --name ud-graph1 -v $(pwd)/myfolder:/inout liris:ud-graph shapechange --config CityGML3.0_config.xml --input [input UML model as XMI]
 ```
 
-For example to launch a shapechange transformation with a configuration file:
+When constructing ShapeChange configuration files for UD-Graph-docker, the `/inout` folder must be specifed as the input and output directories, for example:
 ```
-docker run --name ud-graph1 -v $(pwd)/data:/data liris:ud-graph shapechange --config /data/shapechange_config.xml
+<parameter name="inputFile" value="/inout/[input UML file]"/>
+...
+<targetParameter name="outputDirectory" value="/inout/"/>
 ```
-
-## Tips!
-* Many UD-Graph calculations are run once and do not need to be re-run. Remember to use the `--rm` flag to automatically remove the container after use and avoid polluting your Docker environment.
-* UD-Graph transformations often require mounting a volume for file input and output as shown in the example above.
-* When using a custom shapechange configuration file, be sure to specify the output directory as the mounted drive, for example:
+Optionally, the variable `$input$` can be used to specify the input UML model filename, for example:
 ```
-<targetParameter name="outputDirectory" value="/data-io/output/"/>
+<parameter name="inputFile" value="$input$"/>
 ```
-or you can use variables _"$input$"_ and _"$output$"_ which will be replaced by the endpoint script
-```
-<targetParameter name="outputDirectory" value="$input$"/>
-```
+This will enable the `--input` parameter to be used within UD-Graph-docker
