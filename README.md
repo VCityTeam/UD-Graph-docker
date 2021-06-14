@@ -19,12 +19,12 @@ docker run --rm liris:ud-graph [shapechange|xsd2owl|xml2rdf] [-h|--help]
 
 General usage:
 ```
-docker run -v [path to a local folder]:[path to mount folder in container] liris:ud-graph [entrypoint_arguments**]
+docker run --name [container name]-v [path to a local folder]:[path to mount folder in container] liris:ud-graph [entrypoint_arguments**]
 ```
 
 For example to launch a shapechange transformation with a configuration file:
 ```
-docker run -v $(pwd)/data:/data liris:ud-graph shapechange --config /data/shapechange_config.xml
+docker run --name ud-graph1 -v $(pwd)/data:/data liris:ud-graph shapechange --config /data/shapechange_config.xml
 ```
 
 ## Tips!
