@@ -12,7 +12,7 @@ To use UD-Graph-docker run the container using the following docker run command 
 ```
 docker run --name [container name] -v [path to a local folder]:/inout liris:ud-graph [shapechange|xml2rdf|xsd2owl] [command args**]
 ```
-**Tip:** use `$(pwd)` to select the current working directory when mounting a volume.
+**Tip:** use `$(pwd)` to select the current working directory when mounting a volume. See [docker documentation](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) for more information
 
 To display general usage information: 
 ```
