@@ -28,21 +28,41 @@ This function uses [ShapeChange](https://shapechange.net/) to transform a UML mo
 
 Two example ShapeChange configuration files for transforming the CityGML 2.0 and 3.0 models as XMI files are available within the container and can be accessed with the following commands:
 ```
-docker run --name ud-graph1 -v $(pwd)/:/inout liris:ud-graph shapechange --config CityGML2.0_config.xml --input /inout/[input UML model as XMI]
+docker run --name ud-graph1 -v $(pwd):/inout liris:ud-graph shapechange ../CityGML2.0_config.xml --input [input UML model as XMI]
 ```
 ```
-docker run --name ud-graph1 -v $(pwd)/:/inout liris:ud-graph shapechange --config CityGML3.0_config.xml --input /inout/[input UML model as XMI]
+docker run --name ud-graph1 -v $(pwd):/inout liris:ud-graph shapechange ../CityGML3.0_config.xml --input [input UML model as XMI]
 ```
 
-When constructing ShapeChange configuration files for UD-Graph-docker, the `/inout` folder must be specifed when declaring input and output directories, for example:
+When constructing ShapeChange configuration files for use within UD-Graph-docker, the `/inout` folder must be specifed when declaring input and output directories, for example:
 ```
-<parameter name="inputFile" value="/inout/[input UML file]"/>
+<input>
+   <parameter name="inputFile" value="/inout/[input UML file]"/>
+   ...
+</input>
 ...
-<targetParameter name="outputDirectory" value="/inout/"/>
+<targets>
+  <target>
+    <targetParameter name="outputDirectory" value="/inout/"/>
+    ...
+  </target>
+</targets>
 ```
-Optionally, the variable `$input$` can be used to specify the input UML model filename, for example:
+Optionally, the variables `$input$` and `$output$` can be used to specify the input UML model filename and output directory, for example:
 ```
-<parameter name="inputFile" value="$input$"/>
+<input>
+  <parameter name="inputFile" value="$input$"/>
+   ...
+</input>
+...
+<targets>
+  <target>
+    <targetParameter name="outputDirectory" value="$output$"/>
+    ...
+  </target>
+</targets>
 ```
-This will enable the `--input` parameter to be used within UD-Graph-docker as shown above.
-
+This will enable the `--input` parameter to be used within UD-Graph-docker as shown above. Note that the actual command called by the entrypoint to run ShapeChange is the following:
+```
+java -jar lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 -c /inout/[configuration file] -x '$input$' '/inout/[--input file]' -x '$output$' '/inout/'
+```
