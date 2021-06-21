@@ -15,15 +15,16 @@ RUN addgroup --gid $GROUP_ID user \
 	&& adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
 # Setup UD-Graph
-RUN git clone https://github.com/VCityTeam/UD-Graph.git /UD-Graph
- # && cd /UD-Graph \
- # && git checkout tags/v1.0.0-alpha
-RUN cd /UD-Graph \
- && mkdir /inout \
- && cp Transformations/UML-to-OWL/CityGML2.0_config.xml / \
- && cp Transformations/UML-to-OWL/CityGML3.0_config.xml / \
+RUN git clone https://github.com/VCityTeam/UD-Graph.git /UD-Graph \
+ && cd /UD-Graph \
+ && git checkout tags/v1.1.0-alpha
+RUN mkdir /inout \
  && chown -R user:user /inout \
- && chown -R user:user /UD-Graph
+ && chown -R user:user /UD-Graph \
+ && cp /UD-Graph/Transformations/ShapeChange/CityGML2.0_config.xml / \
+ && cp /UD-Graph/Transformations/ShapeChange/CityGML3.0_config.xml / \
+ && cp /UD-Graph/Transformations/XML-to-RDF/citygml_2_namespace_mappings.json / \
+ && cp /UD-Graph/Transformations/XML-to-RDF/citygml_3_namespace_mappings.json /
 
 # Setup Entrypoint
 USER user

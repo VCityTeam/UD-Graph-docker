@@ -13,10 +13,9 @@ def main():
     xml2rdf_parser.add_argument('input_model', help='specify the ontology input path; for multiple ontologies, input paths are separated by a ","')
     xml2rdf_parser.add_argument('mapping_file', help='specify the namespace mapping file.')
     xml2rdf_parser.add_argument('--format', default='ttl', choices=['ttl', 'rdf'], help='specify the output data format (ttl by default)')
-    xml2rdf_parser.add_argument('--log', default='./inout/output.log', help='specify the logging file (output.log by default)')
+    xml2rdf_parser.add_argument('--log', default='xml2rdf.log', help='specify the logging file (xml2rdf.log by default)')
     xsd2owl_parser = subparsers.add_parser('xsd2owl', help='transform an xsd file into an owl ontology')
     xsd2owl_parser.add_argument('input', help='specify the input xsd file to transform')
-    xsd2owl_parser.add_argument('output', default='./output', help='specify the output directory')
     args = parser.parse_args()
 
     command = ''
@@ -24,11 +23,11 @@ def main():
         command = (f"java -jar lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 " +
             f"-c /inout/{args.config} -x '$input$' '/inout/{args.input}' -x '$output$' '/inout/'")
     elif args.transformation == 'xml2rdf':
-        command = (f'python XML-to-RDF/OWL-based-transformations/CityGML2RDF.py ' +
-            f'{args.input_file} {args.input_model} {args.mapping_file} --log {args.log} ' +
-            f'--format {args.format} --output /UD-Graph/Transformations/inout')
+        command = (f'python XML-to-RDF/CityGML2RDF.py ' +
+            f'/inout/{args.input_file} /inout/{args.input_model} /inout/{args.mapping_file} --log /inout/{args.log} ' +
+            f'--format {args.format} --output /inout/')
     elif args.transformation == 'xsd2owl':
-        command = f'python XSD-to-OWL/run.py {args.input} {args.output}'
+        command = f'cd XSD-to-OWL && python run.py /inout/{args.input} /inout/'
 
     print(command)
     os.system(command)
