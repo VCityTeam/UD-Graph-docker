@@ -24,7 +24,8 @@ RUN mkdir /inout \
  && cp /UD-Graph/Transformations/ShapeChange/CityGML2.0_config.xml / \
  && cp /UD-Graph/Transformations/ShapeChange/CityGML3.0_config.xml / \
  && cp /UD-Graph/Transformations/XML-to-RDF/citygml_2_namespace_mappings.json / \
- && cp /UD-Graph/Transformations/XML-to-RDF/citygml_3_namespace_mappings.json /
+ && cp /UD-Graph/Transformations/XML-to-RDF/citygml_3_namespace_mappings.json / \
+ && rm -rf /UD-Graph/Transformations/test-data
 
 # Setup Entrypoint
 USER user
