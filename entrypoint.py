@@ -8,6 +8,7 @@ def main():
     uml2owl_parser = subparsers.add_parser('shapechange', help='transform a uml model to an owl ontology via ShapeChange')
     uml2owl_parser.add_argument('config', help='specify the shapechange configuration file')
     uml2owl_parser.add_argument('--input', help='specify the uml file to transform')
+    uml2owl_parser.add_argument('--output', help='specify a directory to write the transformed model to')
     xml2rdf_parser = subparsers.add_parser('xml2rdf', help='transform an xml file into a rdf graph')
     xml2rdf_parser.add_argument('input_file', help='specify the input CityGML datafile')
     xml2rdf_parser.add_argument('input_model', help='specify the ontology input path; for multiple ontologies, input paths are separated by a ","')
@@ -21,7 +22,7 @@ def main():
     command = ''
     if args.transformation == 'shapechange':
         command = (f"java -jar lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 " +
-            f"-c /inout/{args.config} -x '$input$' '/inout/{args.input}' -x '$output$' '/inout/'")
+            f"-c /inout/{args.config} -x '$input$' '/inout/{args.input}' -x '$output$' '/inout/{args.output}'")
     elif args.transformation == 'xml2rdf':
         command = (f'python XML-to-RDF/CityGML2RDF.py ' +
             f'/inout/{args.input_file} /inout/{args.input_model} /inout/{args.mapping_file} --log /inout/{args.log} ' +
