@@ -3,7 +3,7 @@ Docker context for UD-Graph functionalities
 
 ## To build image
 ```
-git clone git://github.com/VCityTeam/UD-Graph-docker/
+git clone https://github.com/VCityTeam/UD-Graph-docker.git
 docker build -t liris/ud-graph ./UD-Graph-docker/
 ```
 
