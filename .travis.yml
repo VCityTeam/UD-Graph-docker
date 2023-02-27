@@ -1,9 +1,26 @@
 os: linux
-dist: bionic
+dist: focal
 language: generic
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.29.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 jobs:
   include:
+    - stage: Building and running the UD-Graph container
+      script:
+        - docker build -t vcity/ud-graph .
+        - docker run --rm --detach -t vcity/ud-graph
+        - travis_wait 2 
+        - docker stop $(docker ps -a -q --filter ancestor=vcity/ud-graph --format="{{.ID}}")
     - stage: "Markdown link checks"
       language: node_js
       node_js: 14
@@ -11,8 +28,9 @@ jobs:
         - npm install --global remark-cli remark-validate-links
         - remark -u validate-links .
         - |
-          export FAILURE_THRESHOLD=1
+          export FAILURE_THRESHOLD=0
           export warnings=`remark -u validate-links . 2>&1 | grep warning | grep "Link to unknown" | wc -l`
           if [ $warnings -gt $FAILURE_THRESHOLD ]; then
             exit 1;
           fi
+
