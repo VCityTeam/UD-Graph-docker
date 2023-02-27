@@ -1,4 +1,5 @@
-# UD-Graph-docker
+# UD-Graph-docker [![Build Status](https://app.travis-ci.com/VCityTeam/UD-Graph-docker.svg?branch=main&status=created)](https://app.travis-ci.com/github/VCityTeam/UD-Graph-docker)
+
 Docker context for UD-Graph functionalities 
 
 ## To build image
